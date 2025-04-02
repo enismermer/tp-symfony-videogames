@@ -18,9 +18,6 @@ class Console
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $manufacturer = null;
-
     /**
      * @var Collection<int, VideoGame>
      */
@@ -45,18 +42,6 @@ class Console
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getManufacturer(): ?string
-    {
-        return $this->manufacturer;
-    }
-
-    public function setManufacturer(string $manufacturer): static
-    {
-        $this->manufacturer = $manufacturer;
 
         return $this;
     }
