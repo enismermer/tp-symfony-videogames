@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinTable;
 
 #[ORM\Entity(repositoryClass: VideoGameRepository::class)]
 class VideoGame
@@ -32,12 +33,14 @@ class VideoGame
      * @var Collection<int, Console>
      */
     #[ORM\ManyToMany(targetEntity: Console::class, inversedBy: 'videoGames')]
+    // #[JoinTable(name: "video_game_console")]
     private Collection $consoles;
 
     /**
      * @var Collection<int, Category>
      */
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'videoGames')]
+    // #[JoinTable(name: 'video_game_console')]
     private Collection $categories;
 
     public function __construct()
