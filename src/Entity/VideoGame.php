@@ -33,14 +33,14 @@ class VideoGame
      * @var Collection<int, Console>
      */
     #[ORM\ManyToMany(targetEntity: Console::class, inversedBy: 'videoGames')]
-    // #[JoinTable(name: "video_game_console")]
+    #[JoinTable(name: "video_game_console")]
     private Collection $consoles;
 
     /**
      * @var Collection<int, Category>
      */
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'videoGames')]
-    // #[JoinTable(name: 'video_game_console')]
+    #[JoinTable(name: 'video_game_category')]
     private Collection $categories;
 
     public function __construct()

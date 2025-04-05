@@ -13,7 +13,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         // Création des consoles
-        $consoles = [
+        $consoleNames = [
             'Nintendo 64',
             'Nintendo Switch',
             'Arcade',
@@ -24,14 +24,16 @@ class AppFixtures extends Fixture
             'Windows',
         ];
 
-        foreach ($consoles as $consoleName) {
+        $consoleEntities = [];
+        foreach ($consoleNames as $name) {
             $console = new Console();
-            $console->setName($consoleName);
+            $console->setName($name);
             $manager->persist($console);
+            $consoleEntities[$name] = $console; // On stocke l'objet pour le réutiliser plus tard
         }
 
         // Création des catégories
-        $categories = [
+        $categoryNames = [
             'Plateforme',
             'Action',
             'Combat',
@@ -40,10 +42,12 @@ class AppFixtures extends Fixture
             'Tir à la troisième personne',
         ];
 
-        foreach ($categories as $categoryName) {
+        $categoryEntities = [];
+        foreach ($categoryNames as $name) {
             $category = new Category();
-            $category->setName($categoryName);
+            $category->setName($name);
             $manager->persist($category);
+            $categoryEntities[$name] = $category; // Idem
         }
 
         // Création des jeux vidéo
@@ -106,30 +110,26 @@ class AppFixtures extends Fixture
             ],
         ];
 
-        foreach ($games as $gameData) {
-            $videoGame = new VideoGame();
-            $videoGame->setTitle($gameData['title']);
-            $videoGame->setReleaseDate($gameData['releaseDate']);
-            $videoGame->setDeveloper($gameData['developer']);
-            $videoGame->setDescription($gameData['description']);
+        foreach ($games as $data) {
+            $game = new VideoGame();
+            $game->setTitle($data['title']);
+            $game->setReleaseDate($data['releaseDate']);
+            $game->setDeveloper($data['developer']);
+            $game->setDescription($data['description']);
 
-            // Ajouter les consoles associées
-            foreach ($gameData['consoles'] as $consoleName) {
-                $console = $manager->getRepository(Console::class)->findOneBy(['name' => $consoleName]);
-                if ($console) {
-                    $videoGame->addConsole($console);
+            foreach ($data['consoles'] as $consoleName) {
+                if (isset($consoleEntities[$consoleName])) {
+                    $game->addConsole($consoleEntities[$consoleName]);
                 }
             }
 
-            // Ajouter les catégories associées
-            foreach ($gameData['categories'] as $categoryName) {
-                $category = $manager->getRepository(Category::class)->findOneBy(['name' => $categoryName]);
-                if ($category) {
-                    $videoGame->addCategory($category);
+            foreach ($data['categories'] as $categoryName) {
+                if (isset($categoryEntities[$categoryName])) {
+                    $game->addCategory($categoryEntities[$categoryName]);
                 }
             }
 
-            $manager->persist($videoGame);
+            $manager->persist($game);
         }
 
         $manager->flush();
