@@ -1,0 +1,17 @@
+<h1>{{ game.title }}</h1>
+
+<p><strong>Développeur :</strong> {{ game.developer }}</p>
+<p><strong>Date de sortie (France) :</strong> {{ game.releaseDate|date("d/m/Y") }}</p>
+<p><strong>Catégorie :</strong> 
+    {% for category in game.categories %}
+        {{ category.name }}{% if not loop.last %}, {% endif %}
+    {% endfor %}
+</p>
+<p><strong>Consoles :</strong> 
+    {% for console in game.consoles %}
+        {{ console.name }}{% if not loop.last %}, {% endif %}
+    {% endfor %}
+</p>
+<p><strong>Description :</strong> {{ game.description }}</p>
+
+<a href="{{ path('games_list') }}">← Retour à la liste</a>

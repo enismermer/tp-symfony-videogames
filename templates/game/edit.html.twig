@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Éditer un jeu{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Éditer un jeu vidéo</h1>
+
+    <div class="card shadow">
+        <div class="card-body">
+            {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+
+                <div class="mb-3">
+                    {{ form_label(form.title, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.title) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.developer, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.developer, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.developer) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.releaseDate, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.releaseDate, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.releaseDate) }}
+                </div>
+
+                <div class="mb-3">
+                    {% for child in form.categories %}
+                        <div class="form-check">
+                            {{ form_widget(child, {'attr': {'class': 'form-check-input'}}) }}
+                            {{ form_label(child, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="mb-3">
+                    {% for child in form.consoles %}
+                        <div class="form-check">
+                            {{ form_widget(child, {'attr': {'class': 'form-check-input'}}) }}
+                            {{ form_label(child, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                            {{ form_errors(child) }}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.description, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.description, {'attr': {'class': 'form-control', 'rows': 5}}) }}
+                    {{ form_errors(form.description) }}
+                </div>
+
+                <div class="text-end">
+                    {{ form_widget(form.save, {
+                        'label': 'Éditer un jeu vidéo',
+                        'attr': {'class': 'btn btn-primary'}
+                        }) 
+                    }}
+                </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
