@@ -13,9 +13,10 @@
 ## Fonctionnalités
 
 - **Gestion des jeux vidéo** : Ajout, modification des jeux vidéo dans la collection
-- **Affichage des jeux vidéo** : Liste de tous les jeux vidéo enregistrés
+- **Affichage des jeux vidéo** : Liste de tous les jeux vidéo enregistrés (pagination avec KnpPaginatorBundle)
 - **Détails sur chaque jeu vidéo** : Informations complètes sur chaque jeu (titre, description, date de sortie, etc.)
 - **Formulaires interactifs** : Validation des formulaires pour l'ajout et la modification des jeux
+- **Données de test (fixtures)** : Import de jeux Nintendo 64 via DoctrineFixturesBundle pour peupler la base de données avec des exemples réalistes
 
 ## Installation
 
